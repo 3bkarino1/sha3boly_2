@@ -14,15 +14,16 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(135deg, #0a0a1a, #1a1a3a, #0f0c29);
             color: #fff;
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -30,196 +31,443 @@
         /* Header Styles */
         header {
             text-align: center;
-            padding: 60px 0 40px;
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 80px 0 60px;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
         }
 
         h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            font-size: 4rem;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ff9900);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(255, 0, 255, 0.6), 0 0 40px rgba(255, 0, 255, 0.4);
+            }
         }
 
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: #a0a0ff;
             font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            padding: 60px 0;
+            padding: 80px 0;
         }
 
         .stat-card {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 30px;
+            border-radius: 20px;
+            padding: 35px 25px;
             text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            z-index: 2;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
         }
 
         .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
-            border-color: rgba(255, 0, 255, 0.3);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(255, 0, 255, 0.25);
+            border-color: rgba(255, 0, 255, 0.4);
         }
 
         .stat-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            margin-bottom: 25px;
             background: linear-gradient(45deg, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.3));
         }
 
         .stat-number {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 700;
             font-family: 'Orbitron', sans-serif;
             background: linear-gradient(45deg, #00ffff, #ff00ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin: 15px 0;
+            margin: 20px 0;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
         }
 
         .stat-description {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #e0e0ff;
+            line-height: 1.5;
         }
 
         /* Chart Section */
         .chart-section {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 60px 0;
-            margin: 40px 0;
-            border-top: 1px solid rgba(255, 0, 255, 0.2);
-            border-bottom: 1px solid rgba(255, 0, 255, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 80px 0;
+            margin: 60px 0;
+            border-top: 1px solid rgba(255, 0, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 0, 255, 0.3);
+            position: relative;
+        }
+
+        .chart-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .chart-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
         .chart-title {
             text-align: center;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 30px;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
             color: #00ffff;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
         }
 
         /* Fun Fact Strip */
         .fun-fact {
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            padding: 30px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff9900);
+            padding: 40px;
             text-align: center;
-            margin: 60px 0;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+            margin: 80px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 0, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fun-fact::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .fun-fact h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
         }
 
         .fun-fact p {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: 600;
+            position: relative;
+            z-index: 1;
         }
 
         /* Footer CTA */
         footer {
             text-align: center;
-            padding: 60px 0;
-            background: rgba(0, 0, 0, 0.5);
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .cta-message {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
             color: #a0a0ff;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 15px 40px;
+            padding: 18px 50px;
             background: linear-gradient(45deg, #ff00ff, #00ffff);
             color: #000;
             text-decoration: none;
             border-radius: 50px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+            font-size: 1.3rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(255, 0, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            transform: scale(1.08);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.6);
+        }
+
+        /* New Elements */
+        .impact-timeline {
+            padding: 80px 0;
+        }
+
+        .timeline-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #00ffff;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(to bottom, #ff00ff, #00ffff);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            padding: 30px 50px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: #ff00ff;
+            transform: rotate(45deg);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: #00ffff;
+            transform: rotate(45deg);
+        }
+
+        .timeline-year {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #ff9900;
+            margin-bottom: 10px;
+        }
+
+        .timeline-event {
+            font-size: 1.2rem;
+            color: #e0e0ff;
         }
 
         /* Responsive Design */
+        @media (max-width: 1100px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -10px;
+                right: auto;
+            }
+        }
+
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
             
             .subtitle {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 25px;
+                padding: 60px 0;
             }
             
             .stat-number {
-                font-size: 2.8rem;
+                font-size: 3.2rem;
             }
             
             .cta-message {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
+            }
+            
+            .chart-title, .timeline-title {
+                font-size: 1.8rem;
             }
         }
 
         @media (max-width: 480px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .stat-card {
-                padding: 20px;
+                padding: 25px 15px;
             }
             
             .fun-fact {
-                padding: 20px;
+                padding: 25px;
             }
             
             .fun-fact p {
-                font-size: 1rem;
+                font-size: 1.1rem;
+            }
+            
+            .chart-container {
+                padding: 20px;
             }
         }
     </style>
@@ -228,7 +476,7 @@
     <div class="container">
         <header>
             <h1>Space Weather Impact Statistics</h1>
-            <p class="subtitle">How solar storms affect our daily life</p>
+            <p class="subtitle">How solar storms and space weather events affect technology, infrastructure, and daily life on Earth</p>
         </header>
 
         <section class="stats-grid">
@@ -276,14 +524,50 @@
             </div>
         </section>
 
+        <section class="impact-timeline">
+            <h2 class="timeline-title">Historical Space Weather Events</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1859</div>
+                        <div class="timeline-event">Carrington Event - The most powerful solar storm on record, causing telegraph systems to fail worldwide.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1989</div>
+                        <div class="timeline-event">Quebec Blackout - A geomagnetic storm caused a 9-hour power outage affecting 6 million people.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2003</div>
+                        <div class="timeline-event">Halloween Storms - Series of solar flares caused satellite malfunctions and airline communication issues.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2012</div>
+                        <div class="timeline-event">Near Miss - A Carrington-level solar storm narrowly missed Earth, which could have caused trillions in damages.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022</div>
+                        <div class="timeline-event">SpaceX Satellite Loss - A geomagnetic storm destroyed 40 Starlink satellites shortly after launch.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="fun-fact">
             <h3>Did you know?</h3>
-            <p>In 1989, a solar storm caused a 9-hour blackout in Quebec, affecting 6 million people!</p>
+            <p>The largest recorded solar flare occurred in 2003, measuring X45 on the solar flare scale - so powerful it saturated the sensors!</p>
         </section>
 
         <footer>
-            <p class="cta-message">"Want to see how YOU would survive a solar storm? Play the game now!"</p>
-            <a href="#" class="cta-button">Play Space Weather Game</a>
+            <p class="cta-message">"Experience the power of space weather firsthand. Can you protect Earth from a solar superstorm?"</p>
+            <a href="#" class="cta-button">Play Space Weather Defender</a>
         </footer>
     </div>
 
@@ -305,12 +589,12 @@
                         data: stormFrequency,
                         borderColor: '#00ffff',
                         backgroundColor: 'rgba(0, 255, 255, 0.1)',
-                        borderWidth: 3,
+                        borderWidth: 4,
                         pointBackgroundColor: '#ff00ff',
                         pointBorderColor: '#ffffff',
                         pointBorderWidth: 2,
-                        pointRadius: 6,
-                        pointHoverRadius: 8,
+                        pointRadius: 7,
+                        pointHoverRadius: 10,
                         fill: true,
                         tension: 0.4
                     }]
@@ -332,11 +616,13 @@
                             }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
                             titleColor: '#00ffff',
                             bodyColor: '#ffffff',
                             borderColor: '#ff00ff',
-                            borderWidth: 1
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8
                         }
                     },
                     scales: {
@@ -347,7 +633,8 @@
                             ticks: {
                                 color: '#ffffff',
                                 font: {
-                                    family: 'Poppins'
+                                    family: 'Poppins',
+                                    size: 12
                                 }
                             }
                         },
@@ -358,7 +645,8 @@
                             ticks: {
                                 color: '#ffffff',
                                 font: {
-                                    family: 'Poppins'
+                                    family: 'Poppins',
+                                    size: 12
                                 },
                                 callback: function(value) {
                                     return value + ' storms';
@@ -375,7 +663,7 @@
             
             statCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                    this.style.transform = 'translateY(-15px) scale(1.03)';
                 });
                 
                 card.addEventListener('mouseleave', function() {
@@ -416,6 +704,25 @@
             }, { threshold: 0.5 });
 
             observer.observe(document.querySelector('.stats-grid'));
+
+            // Add scroll animations for timeline
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            timelineItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                timelineObserver.observe(item);
+            });
         });
     </script>
 </body>
