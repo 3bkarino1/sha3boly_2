@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Weather Quiz - Are You Smarter Than Soli?</title>
+    <style>
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(to bottom, #0b0b2d, #1a1a4a);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* Header styles */
+        header {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            text-shadow: 2px 2px 0 #ff6600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .sun-icon {
+            font-size: 3rem;
+            animation: spin 10s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Quiz container */
+        .quiz-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid #ffcc00;
+        }
+        
+        /* Question styles */
+        .question-container {
+            margin-bottom: 30px;
+        }
+        
+        .question-number {
+            font-size: 1.2rem;
+            color: #ffcc00;
+            margin-bottom: 10px;
+        }
+        
+        .question {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+        
+        /* Answer options */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .option {
+            background-color: #4a4a9e;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 20px;
+            font-size: 1.4rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .option:hover {
+            background-color: #5a5aae;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .option:active {
+            transform: translateY(1px);
+        }
+        
+        .option-letter {
+            background-color: #ffcc00;
+            color: #1a1a4a;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        /* Feedback message */
+        .feedback {
+            font-size: 1.5rem;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .correct {
+            background-color: rgba(76, 175, 80, 0.3);
+            color: #a5d6a7;
+            border: 2px solid #4caf50;
+            display: block;
+        }
+        
+        .incorrect {
+            background-color: rgba(244, 67, 54, 0.3);
+            color: #ffab91;
+            border: 2px solid #f44336;
+            display: block;
+        }
+        
+        /* Navigation buttons */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        .nav-btn:hover {
+            background-color: #ff8533;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .nav-btn:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Results screen */
+        .results-container {
+            display: none;
+            text-align: center;
+        }
+        
+        .score {
+            font-size: 4rem;
+            color: #ffcc00;
+            margin: 20px 0;
+            text-shadow: 2px 2px 0 #ff6600;
+        }
+        
+        .message {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+        
+        .play-again {
+            background-color: #ffcc00;
+            color: #1a1a4a;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-weight: bold;
+        }
+        
+        .play-again:hover {
+            background-color: #ffd633;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Stars background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+                flex-direction: column;
+            }
+            
+            .question {
+                font-size: 1.5rem;
+            }
+            
+            .option {
+                font-size: 1.2rem;
+                padding: 12px 15px;
+            }
+            
+            .score {
+                font-size: 3rem;
+            }
+            
+            .message {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .question {
+                font-size: 1.3rem;
+            }
+            
+            .option {
+                font-size: 1rem;
+            }
+            
+            .nav-btn, .play-again {
+                font-size: 1.1rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <header>
+            <h1>
+                <span>Space Weather Quiz</span>
+                <span class="sun-icon">☀️</span>
+                <span>Are You Smarter Than Soli?</span>
+            </h1>
+        </header>
+        
+        <main class="quiz-container">
+            <div class="question-container" id="question-container">
+                <div class="question-number" id="question-number">Question 1 of 5</div>
+                <div class="question" id="question">What is a solar flare?</div>
+                
+                <div class="options" id="options">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+                
+                <div class="feedback" id="feedback"></div>
+                
+                <div class="navigation">
+                    <button class="nav-btn" id="prev-btn" disabled>Previous</button>
+                    <button class="nav-btn" id="next-btn">Next</button>
+                </div>
+            </div>
+            
+            <div class="results-container" id="results-container">
+                <div class="score" id="score">0/5</div>
+                <div class="message" id="message">Keep Learning, Space Cadet!</div>
+                <button class="play-again" id="play-again">Play Again</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Quiz questions and answers
+        const quizQuestions = [
+            {
+                question: "What is a solar flare?",
+                options: [
+                    "A sudden flash of increased brightness on the Sun",
+                    "A type of weather on Earth",
+                    "A type of star in another galaxy"
+                ],
+                correctAnswer: 0
+            },
+            {
+                question: "How does space weather affect GPS?",
+                options: [
+                    "It makes GPS signals stronger",
+                    "It can disrupt GPS signals and cause errors",
+                    "It has no effect on GPS"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "What protects Earth from solar radiation?",
+                options: [
+                    "The ozone layer",
+                    "Earth's magnetic field",
+                    "The atmosphere only"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "What are the Northern Lights (Aurora Borealis)?",
+                options: [
+                    "Lights from cities reflected in the sky",
+                    "Particles from the Sun interacting with Earth's atmosphere",
+                    "A type of cloud that glows at night"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "What is a coronal mass ejection (CME)?",
+                options: [
+                    "A large explosion on the Sun that releases energy",
+                    "A massive burst of solar wind and magnetic fields from the Sun",
+                    "A type of solar eclipse"
+                ],
+                correctAnswer: 1
+            }
+        ];
+
+        // DOM elements
+        const questionContainer = document.getElementById('question-container');
+        const resultsContainer = document.getElementById('results-container');
+        const questionNumberElement = document.getElementById('question-number');
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const feedbackElement = document.getElementById('feedback');
+        const prevButton = document.getElementById('prev-btn');
+        const nextButton = document.getElementById('next-btn');
+        const scoreElement = document.getElementById('score');
+        const messageElement = document.getElementById('message');
+        const playAgainButton = document.getElementById('play-again');
+        const starsContainer = document.getElementById('stars');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizQuestions.length).fill(null);
+        let score = 0;
+
+        // Initialize the quiz
+        function initQuiz() {
+            createStars();
+            showQuestion();
+            setupEventListeners();
+        }
+
+        // Create starry background
+        function createStars() {
+            const starCount = 100;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                
+                // Random animation delay
+                const delay = Math.random() * 5;
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Display current question
+        function showQuestion() {
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            
+            // Update question number and text
+            questionNumberElement.textContent = `Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`;
+            questionElement.textContent = currentQuestion.question;
+            
+            // Clear previous options
+            optionsElement.innerHTML = '';
+            
+            // Create new options
+            currentQuestion.options.forEach((option, index) => {
+                const optionElement = document.createElement('button');
+                optionElement.classList.add('option');
+                
+                const optionLetter = document.createElement('div');
+                optionLetter.classList.add('option-letter');
+                optionLetter.textContent = String.fromCharCode(65 + index); // A, B, C
+                
+                const optionText = document.createElement('div');
+                optionText.textContent = option;
+                
+                optionElement.appendChild(optionLetter);
+                optionElement.appendChild(optionText);
+                
+                // Check if this option was previously selected
+                if (userAnswers[currentQuestionIndex] === index) {
+                    optionElement.style.backgroundColor = '#ffcc00';
+                    optionElement.style.color = '#1a1a4a';
+                }
+                
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsElement.appendChild(optionElement);
+            });
+            
+            // Update navigation buttons
+            prevButton.disabled = currentQuestionIndex === 0;
+            
+            // Clear feedback
+            feedbackElement.className = 'feedback';
+            feedbackElement.style.display = 'none';
+            
+            // Update next button text if it's the last question
+            if (currentQuestionIndex === quizQuestions.length - 1) {
+                nextButton.textContent = 'Finish Quiz';
+            } else {
+                nextButton.textContent = 'Next';
+            }
+        }
+
+        // Handle option selection
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestionIndex] = optionIndex;
+            
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            const isCorrect = optionIndex === currentQuestion.correctAnswer;
+            
+            // Show feedback
+            feedbackElement.textContent = isCorrect 
+                ? '🌟 Correct! Soli is proud of you!' 
+                : '❌ Oops! Soli says try again!';
+            feedbackElement.className = isCorrect ? 'feedback correct' : 'feedback incorrect';
+            feedbackElement.style.display = 'block';
+            
+            // Update option styles
+            const options = optionsElement.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                if (index === currentQuestion.correctAnswer) {
+                    option.style.backgroundColor = '#4caf50';
+                    option.style.color = 'white';
+                } else if (index === optionIndex && !isCorrect) {
+                    option.style.backgroundColor = '#f44336';
+                    option.style.color = 'white';
+                }
+                
+                // Disable all options after selection
+                option.style.pointerEvents = 'none';
+            });
+        }
+
+        // Show results
+        function showResults() {
+            // Calculate score
+            score = 0;
+            quizQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correctAnswer) {
+                    score++;
+                }
+            });
+            
+            // Update score and message
+            scoreElement.textContent = `${score}/${quizQuestions.length}`;
+            
+            if (score === 5) {
+                messageElement.textContent = '🚀 Space Genius!';
+            } else if (score >= 3) {
+                messageElement.textContent = '🌎 Earth Defender!';
+            } else {
+                messageElement.textContent = '☁️ Keep Learning, Space Cadet!';
+            }
+            
+            // Show results container, hide question container
+            questionContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Previous button
+            prevButton.addEventListener('click', () => {
+                if (currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                    showQuestion();
+                }
+            });
+            
+            // Next button
+            nextButton.addEventListener('click', () => {
+                if (userAnswers[currentQuestionIndex] === null) {
+                    feedbackElement.textContent = 'Please select an answer before continuing!';
+                    feedbackElement.className = 'feedback incorrect';
+                    feedbackElement.style.display = 'block';
+                    return;
+                }
+                
+                if (currentQuestionIndex < quizQuestions.length - 1) {
+                    currentQuestionIndex++;
+                    showQuestion();
+                } else {
+                    showResults();
+                }
+            });
+            
+            // Play again button
+            playAgainButton.addEventListener('click', () => {
+                currentQuestionIndex = 0;
+                userAnswers = Array(quizQuestions.length).fill(null);
+                score = 0;
+                
+                resultsContainer.style.display = 'none';
+                questionContainer.style.display = 'block';
+                
+                showQuestion();
+            });
+        }
+
+        // Start the quiz when the page loads
+        window.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>

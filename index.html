@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Weather Adventure</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a6bff;
+            --secondary: #ff6b4a;
+            --accent: #ffd166;
+            --dark: #1a1a40;
+            --light: #f8f9fa;
+            --space-blue: #0b1b4d;
+            --space-purple: #5d2e8c;
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00c8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--space-blue), var(--space-purple));
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(10, 15, 40, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--accent);
+            font-size: 2rem;
+        }
+        
+        .logo-text {
+            background: linear-gradient(to right, var(--accent), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--neon-blue);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-links a.active {
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--neon-blue);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 70%;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 209, 102, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            color: var(--accent);
+            position: relative;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--neon-blue);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        /* Project Introduction */
+        .intro-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .intro-text p {
+            margin-bottom: 20px;
+        }
+        
+        .intro-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--neon-blue);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--accent);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .feature-card p {
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        /* Soli Character */
+        .soli-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 50px 0;
+        }
+        
+        .soli-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .soli-character {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at 30% 30%, #ffd166, #ff9e4a);
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 209, 102, 0.7);
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .soli-face {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 70px;
+        }
+        
+        .soli-eyes {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .soli-eye {
+            width: 20px;
+            height: 20px;
+            background: var(--dark);
+            border-radius: 50%;
+        }
+        
+        .soli-mouth {
+            width: 50px;
+            height: 15px;
+            background: var(--dark);
+            border-radius: 0 0 25px 25px;
+            margin: 0 auto;
+        }
+        
+        .soli-sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+        }
+        
+        .sparkle:nth-child(1) {
+            top: 15%;
+            left: 20%;
+            animation: sparkle 2s infinite 0.5s;
+        }
+        
+        .sparkle:nth-child(2) {
+            top: 25%;
+            right: 15%;
+            animation: sparkle 2s infinite 1s;
+        }
+        
+        .sparkle:nth-child(3) {
+            bottom: 20%;
+            left: 30%;
+            animation: sparkle 2s infinite 1.5s;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-download {
+            background: var(--secondary);
+            font-size: 1.2rem;
+            padding: 15px 30px;
+        }
+        
+        .btn-download:hover {
+            background: #ff5722;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+        }
+        
+        .btn-outline:hover {
+            background: var(--neon-blue);
+            color: var(--dark);
+        }
+        
+        /* Game Section */
+        .game-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            padding: 50px;
+        }
+        
+        .game-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .game-features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .game-feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .game-feature i {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        /* Statistics Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+        }
+        
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent);
+        }
+        
+        .member-name {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .member-role {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(10, 15, 40, 0.9);
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--neon-blue);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+        
+        /* Stars Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .intro-content,
+            .soli-container,
+            .game-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 15, 40, 0.95);
+                flex-direction: column;
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .soli-section,
+            .game-section {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-meteor"></i>
+                <span class="logo-text">Space Weather Adventure</span>
+            </div>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="active">Home</a>
+                <a href="story.html">Story</a>
+                <a href="download.html">Game</a>
+                <a href="Statistics.html">Statistics</a>
+                <a href="Q&A.html">Q&A</a>
+                <a href="about.html">Team</a>
+            </div>
+            
+            <div class="mobile-menu" id="mobileMenu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Explore the Wonders of Space Weather!</h1>
+            <p>Join Soli the Solar Beam on an exciting journey through the solar system. Discover how space weather affects our planet and technology in fun, interactive ways!</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-download">Start Adventure</a>
+                <a href="#" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Project Introduction -->
+    <section id="intro">
+        <div class="container">
+            <div class="section-title">
+                <h2>What is Space Weather?</h2>
+            </div>
+            <div class="intro-content">
+                <div class="intro-text">
+                    <p>Space weather is all about the wild and wonderful things happening in space that can affect our planet! From solar flares that create beautiful auroras to solar storms that can affect our technology, space weather is an exciting adventure happening right above our heads.</p>
+                    <p>Understanding space weather helps scientists protect our satellites, power grids, and astronauts in space! It's like having a weather forecast, but for space!</p>
+                    <p>Did you know that the Sun constantly sends out energy and particles into space? When these reach Earth, they can create amazing light shows called auroras, but they can also sometimes disrupt our technology.</p>
+                </div>
+                <div class="intro-visual">
+                    <div class="soli-character">
+                        <div class="soli-face">
+                            <div class="soli-eyes">
+                                <div class="soli-eye"></div>
+                                <div class="soli-eye"></div>
+                            </div>
+                            <div class="soli-mouth"></div>
+                        </div>
+                        <div class="soli-sparkles">
+                            <div class="sparkle"></div>
+                            <div class="sparkle"></div>
+                            <div class="sparkle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Story Section -->
+    <section id="story" class="soli-section">
+        <div class="container">
+            <div class="soli-container">
+                <div>
+                    <h2>Meet Soli the Solar Beam!</h2>
+                    <p>Join Soli on an amazing journey through the solar system! Discover how solar energy travels from the Sun to Earth in this fun, illustrated story with voice narration.</p>
+                    <p>Follow Soli as he learns about solar flares, solar wind, and how they create the beautiful Northern Lights. Along the way, he'll meet other space weather phenomena and learn how they affect life on Earth.</p>
+                    <a href="#" class="btn">Read Soli's Story</a>
+                </div>
+                <div>
+                    <div class="soli-character">
+                        <div class="soli-face">
+                            <div class="soli-eyes">
+                                <div class="soli-eye"></div>
+                                <div class="soli-eye"></div>
+                            </div>
+                            <div class="soli-mouth"></div>
+                        </div>
+                        <div class="soli-sparkles">
+                            <div class="sparkle"></div>
+                            <div class="sparkle"></div>
+                            <div class="sparkle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Game Section -->
+    <section id="game" class="game-section">
+        <div class="container">
+            <div class="game-content">
+                <div>
+                    <h2>Space Weather Game</h2>
+                    <p>Become a space weather scientist! Protect Earth from solar storms and learn about space weather in this exciting game.</p>
+                    <div class="game-features">
+                        <div class="game-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Protect Earth from solar storms</span>
+                        </div>
+                        <div class="game-feature">
+                            <i class="fas fa-satellite"></i>
+                            <span>Learn how to safeguard satellites</span>
+                        </div>
+                        <div class="game-feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Understand power grid protection</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-download">Download Game</a>
+                    <p style="margin-top: 15px;">Watch the gameplay tutorial video!</p>
+                </div>
+                <div>
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Statistics Section -->
+    <section id="statistics">
+        <div class="container">
+            <div class="section-title">
+                <h2>Space Weather Facts</h2>
+            </div>
+            <p class="section-subtitle">Did you know space weather affects electricity and GPS? Explore these fascinating facts about how space weather impacts our daily lives.</p>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">8.3</div>
+                    <div class="stat-text">Minutes for light to travel from Sun to Earth</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-text">Kilometers per hour - solar wind speed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">11</div>
+                    <div class="stat-text">Year solar activity cycle</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1859</div>
+                    <div class="stat-text">Year of the largest recorded solar storm</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#" class="btn">Explore More Statistics</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Space Weather Q&A</h2>
+            </div>
+            <p class="section-subtitle">Test your knowledge with these fun questions about space weather. How much do you know about what's happening in space?</p>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What causes the Northern Lights?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        The Northern Lights (Aurora Borealis) are created when charged particles from the Sun collide with gases in Earth's atmosphere. These particles are carried by the solar wind and are guided by Earth's magnetic field to the poles.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can space weather affect my phone?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! During strong solar storms, GPS signals can be disrupted, which might affect navigation apps on your phone. Satellite communications can also be impacted, potentially affecting phone service in some areas.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What is a solar flare?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        A solar flare is a sudden flash of increased brightness on the Sun, often associated with sunspots. Flares are enormous explosions that release huge amounts of energy across the electromagnetic spectrum.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do scientists predict space weather?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Scientists use satellites to monitor the Sun 24/7. They track sunspots, solar flares, and coronal mass ejections. By studying these, they can forecast space weather events and issue warnings when necessary.
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#" class="btn">Visit Q&A Page</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Meet Our Team</h2>
+            </div>
+            <p class="section-subtitle">Curious about who created this adventure? Meet the scientists, educators, and designers behind the project!</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <div class="member-name">Dr. Stella Nova</div>
+                    <div class="member-role">Space Scientist</div>
+                    <p>Dr. Nova studies solar activity and its effects on Earth's atmosphere.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="member-name">Alex Orion</div>
+                    <div class="member-role">Game Developer</div>
+                    <p>Alex creates fun, educational games about space weather phenomena.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="member-name">Luna Galaxy</div>
+                    <div class="member-role">Illustrator</div>
+                    <p>Luna brings space weather concepts to life with beautiful illustrations.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="member-name">Prof. Cosmo Star</div>
+                    <div class="member-role">Education Specialist</div>
+                    <p>Prof. Star makes complex space weather concepts easy to understand.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#" class="btn">About Our Team</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Space Weather Adventure</h3>
+                    <p>Making space weather education fun and accessible for kids, parents, and teachers.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Story</a></li>
+                        <li><a href="#">Game</a></li>
+                        <li><a href="#">Statistics</a></li>
+                        <li><a href="#">Q&A</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">For Teachers</a></li>
+                        <li><a href="#">For Parents</a></li>
+                        <li><a href="#">Lesson Plans</a></li>
+                        <li><a href="#">Activities</a></li>
+                        <li><a href="#">Glossary</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Email</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Partnerships</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Space Weather Adventure. All rights reserved. | Designed for curious minds aged 8-14</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create stars in the background
+        const starsContainer = document.getElementById('stars');
+        const starCount = 200;
+        
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            // Random position
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            
+            // Random size
+            const size = Math.random() * 3;
+            
+            // Random animation delay
+            const delay = Math.random() * 5;
+            
+            star.style.left = `${x}%`;
+            star.style.top = `${y}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDelay = `${delay}s`;
+            
+            starsContainer.appendChild(star);
+        }
+        
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // FAQ accordion functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+        
+        // Add animation to elements when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .stat-card, .team-member').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سولي — صفحة القصة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/story.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" integrity="sha512-jmW8GR+PbS0J1y5L5J5Q5q5q5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5p5" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <!-- High Contrast Toggle -->
+    <button class="a11y-toggle" id="highContrastToggle" aria-label="تبديل وضع التباين العالي">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" fill="currentColor"/>
+            <path d="M12 4V6" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 18V20" stroke="currentColor" stroke-width="2"/>
+            <path d="M4 12H6" stroke="currentColor" stroke-width="2"/>
+            <path d="M18 12H20" stroke="currentColor" stroke-width="2"/>
+        </svg>
+    </button>
+
+    <!-- Header with Progress -->
+    <header class="story-header" role="banner">
+        <nav class="header-nav" aria-label="التنقل الرئيسي">
+            <button class="skip-btn" id="skipStory">تخطي القصة</button>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="scene-indicators" id="sceneIndicators">
+                    <button class="scene-dot active" data-scene="1" aria-label="المشهد 1"></button>
+                    <button class="scene-dot" data-scene="2" aria-label="المشهد 2"></button>
+                    <button class="scene-dot" data-scene="3" aria-label="المشهد 3"></button>
+                    <button class="scene-dot" data-scene="4" aria-label="المشهد 4"></button>
+                    <button class="scene-dot" data-scene="5" aria-label="المشهد 5"></button>
+                    <button class="scene-dot" data-scene="6" aria-label="المشهد 6"></button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="story-main" id="mainContent">
+        <!-- Scene 1: Introduction -->
+        <section class="story-scene active" id="scene1" data-scene="1">
+            <div class="scene-content">
+                <div class="visual-container">
+                    <div class="lottie-placeholder" id="lottie-scene1" data-src="assets/lottie/scene-1.json">
+                        <img src="assets/svg/scene-1.svg" alt="سولي - شعاع شمس صغير ومغامر" class="fallback-svg">
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h1 class="scene-title">سولي — شعاع شمس صغير ومغامر</h1>
+                    <div class="audio-controls">
+                        <button class="play-btn" data-audio="scene1" aria-label="تشغيل الصوت للمشهد 1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                        <div class="audio-waveform">
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                        </div>
+                    </div>
+                    <div class="captions" id="captions1"></div>
+                    <div class="hotspot-area">
+                        <button class="hotspot" data-hotspot="1" aria-label="معلومة اضافية">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="2"/>
+                                <text x="10" y="14" text-anchor="middle" fill="white" font-size="12">i</text>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="hotspot-card" id="hotspot1-card">
+                <button class="close-hotspot" aria-label="إغلاق">×</button>
+                <h3>معلومة عن أشعة الشمس</h3>
+                <p>أشعة الشمس تحتوي على فيتامين د المهم لصحة العظام والمناعة.</p>
+            </div>
+        </section>
+
+        <!-- Scene 2: Discovery -->
+        <section class="story-scene" id="scene2" data-scene="2">
+            <div class="scene-content">
+                <div class="visual-container">
+                    <div class="lottie-placeholder" id="lottie-scene2" data-src="assets/lottie/scene-2.json">
+                        <img src="assets/svg/scene-2.svg" alt="سولي يكتشف الأرض والناس" class="fallback-svg">
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h2 class="scene-title">اكتشاف الأرض</h2>
+                    <div class="audio-controls">
+                        <button class="play-btn" data-audio="scene2" aria-label="تشغيل الصوت للمشهد 2">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                        <div class="audio-waveform">
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                        </div>
+                    </div>
+                    <div class="captions" id="captions2"></div>
+                    <div class="hotspot-area">
+                        <button class="hotspot" data-hotspot="2-1" aria-label="معلومة اضافية 1">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="2"/>
+                                <text x="10" y="14" text-anchor="middle" fill="white" font-size="12">i</text>
+                            </svg>
+                        </button>
+                        <button class="hotspot" data-hotspot="2-2" aria-label="معلومة اضافية 2">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="2"/>
+                                <text x="10" y="14" text-anchor="middle" fill="white" font-size="12">i</text>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="hotspot-card" id="hotspot2-1-card">
+                <button class="close-hotspot" aria-label="إغلاق">×</button>
+                <h3>اكتشاف البشر</h3>
+                <p>يتفاعل البشر مع أشعة الشمس بشكل مختلف حسب لون بشرتهم.</p>
+            </div>
+            <div class="hotspot-card" id="hotspot2-2-card">
+                <button class="close-hotspot" aria-label="إغلاق">×</button>
+                <h3>فوائد الشمس</h3>
+                <p>الشمس تساعد النباتات على النمو عبر عملية البناء الضوئي.</p>
+            </div>
+        </section>
+
+        <!-- Scene 3: The Challenge -->
+        <section class="story-scene" id="scene3" data-scene="3">
+            <div class="scene-content">
+                <div class="visual-container">
+                    <div class="lottie-placeholder" id="lottie-scene3" data-src="assets/lottie/scene-3.json">
+                        <img src="assets/svg/scene-3.svg" alt="سولي يواجه سحابة نوكس" class="fallback-svg">
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h2 class="scene-title">التحدي</h2>
+                    <div class="audio-controls">
+                        <button class="play-btn" data-audio="scene3" aria-label="تشغيل الصوت للمشهد 3">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                        <div class="audio-waveform">
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                        </div>
+                    </div>
+                    <div class="captions" id="captions3"></div>
+                    <div class="hotspot-area">
+                        <button class="hotspot" data-hotspot="3" aria-label="معلومة اضافية">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="2"/>
+                                <text x="10" y="14" text-anchor="middle" fill="white" font-size="12">i</text>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="hotspot-card" id="hotspot3-card">
+                <button class="close-hotspot" aria-label="إغلاق">×</button>
+                <h3>سحابة نوكس</h3>
+                <p>تمثل السحب والعواصف تحدياً لأشعة الشمس في الوصول للأرض.</p>
+            </div>
+        </section>
+
+        <!-- Scene 4: Journey -->
+        <section class="story-scene" id="scene4" data-scene="4">
+            <div class="scene-content">
+                <div class="visual-container">
+                    <div class="lottie-placeholder" id="lottie-scene4" data-src="assets/lottie/scene-4.json">
+                        <img src="assets/svg/scene-4.svg" alt="سولي يبني الدرع الواقي" class="fallback-svg">
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h2 class="scene-title">الرحلة والتعلم</h2>
+                    <div class="audio-controls">
+                        <button class="play-btn" data-audio="scene4" aria-label="تشغيل الصوت للمشهد 4">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                        <div class="audio-waveform">
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                        </div>
+                    </div>
+                    <div class="captions" id="captions4"></div>
+                    
+                    <!-- Mini-game: Shield Builder -->
+                    <div class="minigame-container" id="shieldGame">
+                        <h3>ابنِ الدرع الواقي</h3>
+                        <div class="shield-parts">
+                            <div class="shield-part" data-part="base" draggable="true">
+                                <span>القاعدة</span>
+                            </div>
+                            <div class="shield-part" data-part="core" draggable="true">
+                                <span>النواة</span>
+                            </div>
+                            <div class="shield-part" data-part="cover" draggable="true">
+                                <span>الغطاء</span>
+                            </div>
+                        </div>
+                        <div class="shield-assembly">
+                            <div class="assembly-area" id="assemblyArea">
+                                <p>اسحب الأجزاء هنا لبناء الدرع</p>
+                            </div>
+                        </div>
+                        <!-- Fallback for non-JS/drag support -->
+                        <div class="shield-fallback">
+                            <button class="shield-step" data-step="1">الخطوة الأولى</button>
+                            <button class="shield-step" data-step="2">الخطوة الثانية</button>
+                            <button class="shield-step" data-step="3">الخطوة الثالثة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 5: Climax -->
+        <section class="story-scene" id="scene5" data-scene="5">
+            <div class="scene-content">
+                <div class="visual-container">
+                    <div class="lottie-placeholder" id="lottie-scene5" data-src="assets/lottie/scene-5.json">
+                        <img src="assets/svg/scene-5.svg" alt="سولي يواجه الموجة الكبيرة" class="fallback-svg">
+                    </div>
+                    <!-- Interactive targets for energy deflection -->
+                    <div class="energy-targets">
+                        <button class="energy-target" data-target="1" aria-label="هدف الطاقة 1"></button>
+                        <button class="energy-target" data-target="2" aria-label="هدف الطاقة 2"></button>
+                        <button class="energy-target" data-target="3" aria-label="هدف الطاقة 3"></button>
+                        <button class="energy-target" data-target="4" aria-label="هدف الطاقة 4"></button>
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h2 class="scene-title">المواجهة الكبرى</h2>
+                    <div class="audio-controls">
+                        <button class="play-btn" data-audio="scene5" aria-label="تشغيل الصوت للمشهد 5">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                        <div class="audio-waveform">
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                        </div>
+                    </div>
+                    <div class="captions" id="captions5"></div>
+                    <div class="interaction-guide">
+                        <p>انقر على الأهداف لتوجيه الطاقة!</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Success celebration -->
+            <div class="celebration" id="celebration">
+                <div class="confetti-container"></div>
+                <div class="success-message">
+                    <h3>أحسنت! نجحت في توجيه الطاقة</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 6: Resolution -->
+        <section class="story-scene" id="scene6" data-scene="6">
+            <div class="scene-content">
+                <div class="visual-container">
+                    <div class="lottie-placeholder" id="lottie-scene6" data-src="assets/lottie/scene-6.json">
+                        <img src="assets/svg/scene-6.svg" alt="سولي يعود منتصراً" class="fallback-svg">
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h2 class="scene-title">النهاية السعيدة</h2>
+                    <div class="audio-controls">
+                        <button class="play-btn" data-audio="scene6" aria-label="تشغيل الصوت للمشهد 6">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                        <div class="audio-waveform">
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                        </div>
+                    </div>
+                    <div class="captions" id="captions6"></div>
+                    
+                    <!-- Final CTA -->
+                    <div class="final-cta">
+                        <button class="cta-btn download-btn" id="downloadGame">
+                            حمّل اللعبة
+                        </button>
+                        <button class="cta-btn quiz-btn" id="takeQuiz">
+                            اختبر معلوماتك
+                        </button>
+                        <button class="cta-btn replay-btn" id="replayStory">
+                            أعِد المشاهدة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Mobile Controls -->
+    <div class="mobile-controls" id="mobileControls">
+        <button class="mobile-btn" id="mobilePlayPause" aria-label="تشغيل/إيقاف الصوت">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        </button>
+        <button class="mobile-btn" id="mobileCaptionsToggle" aria-label="تبديل الترجمة">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 7h2v2H7V7zm0 4h2v2H7v-2zm0 4h2v2H7v-2zm10 4H11v-2h6v2zm0-4H11v-2h6v2zm0-4H11V7h6v2z"/>
+            </svg>
+        </button>
+        <button class="mobile-btn" id="mobileSkipQuiz" aria-label="تخطي إلى الاختبار">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5.88 4.12L13.76 12l-7.88 7.88L8 22l10-10L8 2z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Full Transcript -->
+    <section class="transcript-section" id="transcript">
+        <div class="container">
+            <h2>النص الكامل للقصة</h2>
+            <div class="transcript-content" id="transcriptContent">
+                <!-- Transcript will be loaded here from SRT file -->
+            </div>
+            <button class="back-to-top" id="backToTop">العودة للأعلى</button>
+        </div>
+    </section>
+
+    <!-- Audio Elements -->
+    <audio id="audioScene1" preload="none">
+        <source src="assets/audio/soli-scene-1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audioScene2" preload="none">
+        <source src="assets/audio/soli-scene-2.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audioScene3" preload="none">
+        <source src="assets/audio/soli-scene-3.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audioScene4" preload="none">
+        <source src="assets/audio/soli-scene-4.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audioScene5" preload="none">
+        <source src="assets/audio/soli-scene-5.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audioScene6" preload="none">
+        <source src="assets/audio/soli-scene-6.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="js/story.js"></script>
+</body>
+</html>

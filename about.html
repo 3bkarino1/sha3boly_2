@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Our Team - Solar Storm Explorers</title>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --space-dark: #0a0e17;
+            --space-darker: #050811;
+            --neon-cyan: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-yellow: #ffeb3b;
+            --text-light: #ffffff;
+            --text-gray: #b0b0b0;
+            --card-bg: rgba(16, 22, 36, 0.8);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--space-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .header-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Team Section Styles */
+        .team-section {
+            padding: 40px 20px 80px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple));
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(185, 103, 255, 0.2);
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: var(--space-dark);
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover .avatar {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--text-light);
+        }
+
+        .member-role {
+            font-size: 1rem;
+            color: var(--neon-yellow);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .member-description {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--neon-purple);
+            transform: translateY(-3px);
+        }
+
+        /* Quote Section */
+        .quote-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(5, 8, 17, 0.6);
+            margin: 40px 0;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(185, 103, 255, 0.1), transparent);
+        }
+
+        .quote {
+            font-size: 1.8rem;
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .home-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple));
+            color: var(--space-dark);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .home-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 243, 255, 0.5);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2.5rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .quote {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .team-card {
+                padding: 20px 15px;
+            }
+            
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="header-title">Meet Our Team</h1>
+            <p class="header-subtitle">The explorers behind the Solar Storm mission!</p>
+        </header>
+
+        <section class="team-section">
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-card">
+                    <div class="avatar">🚀</div>
+                    <h3 class="member-name">Luna</h3>
+                    <p class="member-role">Space Illustrator</p>
+                    <p class="member-description">Brings cosmic phenomena to life with vibrant visuals that make space weather exciting and understandable for young minds.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">📘</a>
+                        <a href="#" class="social-icon">📷</a>
+                        <a href="#" class="social-icon">🐦</a>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-card">
+                    <div class="avatar">👨‍💻</div>
+                    <h3 class="member-name">Ray</h3>
+                    <p class="member-role">Lead Developer</p>
+                    <p class="member-description">Creates interactive experiences that transform complex space weather concepts into fun, engaging activities.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">📘</a>
+                        <a href="#" class="social-icon">💼</a>
+                        <a href="#" class="social-icon">🐱</a>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-card">
+                    <div class="avatar">✍️</div>
+                    <h3 class="member-name">Comet</h3>
+                    <p class="member-role">Story Writer</p>
+                    <p class="member-description">Crafts captivating narratives that take children on interstellar adventures while teaching them about solar storms.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">📘</a>
+                        <a href="#" class="social-icon">📚</a>
+                        <a href="#" class="social-icon">✍️</a>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="team-card">
+                    <div class="avatar">🎙️</div>
+                    <h3 class="member-name">Nova</h3>
+                    <p class="member-role">Voiceover Artist</p>
+                    <p class="member-description">Gives voice to our cosmic characters, making each lesson an auditory adventure through the solar system.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">📘</a>
+                        <a href="#" class="social-icon">🎵</a>
+                        <a href="#" class="social-icon">🎬</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <span class="quote-icon">🌞✨</span>
+            <p class="quote">"Together, we shine brighter than the sun!"</p>
+        </section>
+
+        <footer>
+            <a href="#" class="home-button">Back to Home</a>
+        </footer>
+    </div>
+
+    <script>
+        // Add subtle animation to team cards on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const teamCards = document.querySelectorAll('.team-card');
+            
+            teamCards.forEach((card, index) => {
+                // Set initial state for animation
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                // Animate cards with staggered delay
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 * index);
+            });
+
+            // Add floating animation to stars in background
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                const duration = Math.random() * 10 + 5;
+                star.style.animation = `float ${duration}s infinite ease-in-out`;
+            });
+        });
+
+        // Add CSS for star animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0) rotate(0deg); }
+                50% { transform: translateY(-10px) rotate(5deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

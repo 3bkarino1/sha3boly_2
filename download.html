@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soli — Space Weather Game</title>
+    <style>
+        :root {
+            --space-blue: #0b0b2d;
+            --neon-purple: #8a2be2;
+            --electric-blue: #00bfff;
+            --cosmic-pink: #ff1493;
+            --stardust-yellow: #ffd700;
+            --nebula-orange: #ff8c00;
+            --space-gradient: linear-gradient(135deg, #0b0b2d 0%, #1a1a4a 50%, #2d1a4a 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+
+        body {
+            background: var(--space-gradient);
+            color: white;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .download-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .stars-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .headline {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--electric-blue), var(--neon-purple), var(--cosmic-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(138, 43, 226, 0.5); }
+            to { text-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 30px rgba(0, 191, 255, 0.6); }
+        }
+
+        .description {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #ccccff;
+            line-height: 1.8;
+        }
+
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 50px;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .download-info {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+            padding: 30px;
+            background: rgba(10, 10, 40, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .video-preview {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #1a1a4a, #2d1a4a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .video-thumbnail:hover {
+            transform: scale(1.03);
+        }
+
+        .video-thumbnail::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.9);
+        }
+
+        .play-button::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 25px solid var(--nebula-orange);
+            margin-left: 5px;
+        }
+
+        .download-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--electric-blue));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.6);
+        }
+
+        .download-button:active {
+            transform: translateY(0);
+        }
+
+        .download-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .download-button:hover::after {
+            transform: rotate(45deg) translate(10%, 10%);
+        }
+
+        .file-info {
+            margin-top: 20px;
+            color: #aaaaee;
+            font-size: 0.9rem;
+        }
+
+        .file-info div {
+            margin: 8px 0;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 800px;
+            background: var(--space-gradient);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 2.5rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+            
+            .content-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .download-info, .video-preview {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .headline {
+                font-size: 2rem;
+            }
+            
+            .download-button {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="download-section">
+        <div class="stars-bg" id="starsBg"></div>
+        
+        <h1 class="headline">Download Soli — Space Weather Game</h1>
+        <p class="description">
+            Embark on an interstellar adventure! Control solar winds, navigate asteroid fields, 
+            and protect planets from cosmic storms in this exciting space weather game. 
+            Perfect for young astronauts and space enthusiasts!
+        </p>
+        
+        <div class="content-container">
+            <div class="download-info">
+                <h2 style="margin-bottom: 20px; color: var(--stardust-yellow);">Start Your Space Journey</h2>
+                <p style="margin-bottom: 25px; color: #ccccff;">
+                    Join thousands of space explorers in this educational and fun adventure through our solar system!
+                </p>
+                
+                <a href="download/soli-game.exe" class="download-button">Download Now</a>
+                
+                <div class="file-info">
+                    <div>الحجم: 150MB</div>
+                    <div>الإصدار 1.0.0</div>
+                    <div>متوافق مع: Windows 10/11</div>
+                </div>
+            </div>
+            
+            <div class="video-preview">
+                <div class="video-thumbnail" id="playVideoBtn">
+                    <div class="play-button"></div>
+                </div>
+                <p style="margin-top: 15px; color: #aaaaee;">How to Play & Game Preview</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Video Modal -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <button class="close-button" id="closeModal">&times;</button>
+            <div class="video-container">
+                <iframe id="videoFrame" src="https://www.youtube.com/embed/VIDEOID" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create animated stars background
+        function createStars() {
+            const starsBg = document.getElementById('starsBg');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 3;
+                
+                // Random animation delay
+                const delay = Math.random() * 5;
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+                
+                starsBg.appendChild(star);
+            }
+        }
+        
+        // Modal functionality
+        const playVideoBtn = document.getElementById('playVideoBtn');
+        const videoModal = document.getElementById('videoModal');
+        const closeModal = document.getElementById('closeModal');
+        const videoFrame = document.getElementById('videoFrame');
+        
+        playVideoBtn.addEventListener('click', () => {
+            videoModal.style.display = 'flex';
+            // Add autoplay parameter to YouTube URL
+            videoFrame.src = videoFrame.src.replace('VIDEOID', 'VIDEOID?autoplay=1');
+        });
+        
+        closeModal.addEventListener('click', () => {
+            videoModal.style.display = 'none';
+            // Remove autoplay when closing modal
+            videoFrame.src = videoFrame.src.replace('?autoplay=1', '');
+        });
+        
+        // Close modal when clicking outside the content
+        window.addEventListener('click', (event) => {
+            if (event.target === videoModal) {
+                videoModal.style.display = 'none';
+                // Remove autoplay when closing modal
+                videoFrame.src = videoFrame.src.replace('?autoplay=1', '');
+            }
+        });
+        
+        // Initialize stars when page loads
+        window.addEventListener('DOMContentLoaded', createStars);
+    </script>
+</body>
+</html>
